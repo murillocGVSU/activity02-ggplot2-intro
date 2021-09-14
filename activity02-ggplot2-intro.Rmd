@@ -1,11 +1,8 @@
 ---
 title: "Activity 2.1"
-author: "Team Name"
+author: "Cleyde Murillo Jr"
 output: github_document
 ---
-
-In the R code chunk below, I am setting a global option for this `.Rmd` report.
-For the time being you can, "pay not attention to the code between lines 10 and 12."
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(error = TRUE)
@@ -13,131 +10,40 @@ knitr::opts_chunk$set(error = TRUE)
 
 ## Data and packages
 
-Data were collected and made available by [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) and the [Palmer Station, Antarctica LTER](https://pal.lternet.edu/) (a member of the [Long Term Ecological Research Network](https://lternet.edu/)).
-Drs. [Allison Horst](https://allisonhorst.github.io/) and [Alison Hill](https://alison.rbind.io/) packaged these data into [`{palmerpenguins}`](https://allisonhorst.github.io/palmerpenguins/).
-The `penguins` data set contains the following variables:
-
-![Meet the Palmer penguins](https://allisonhorst.github.io/palmerpenguins/reference/figures/lter_penguins.png)
-
-All artwork by [@allison_horst](https://twitter.com/allison_horst).
-
-- `species`:
-- `island`:
-- `bill_length_mm`:
-- `bill_depth_mm`:
-- `flipper_length_mm`:
-- `body_mass_g`:
-- `sex`:
-- `year`:
-
-We will need to install `{palmerpenguins}` in your RStudio session to be able to use this.
-There are a couple of ways to do this, but my preferred method is to type the following in your **Console** pane (this should be the pane below this open `.Rmd` file).
-Note that you should only ever type this in your Console (this should not be included in any R Markdown files).
-
-```
-install.packages("palmerpenguins")
-```
-
-After a brief amount of time, your Console should display:
-
-```
-Installing package into ‘/home/{studentid}/R/x86_64-pc-linux-gnu-library/4.1’
-(as ‘lib’ is unspecified)
-trying URL 'https://cran.rstudio.com/src/contrib/palmerpenguins_0.1.0.tar.gz'
-Content type 'application/x-gzip' length 2987721 bytes (2.8 MB)
-==================================================
-downloaded 2.8 MB
-
-* installing *source* package ‘palmerpenguins’ ...
-** package ‘palmerpenguins’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (palmerpenguins)
-
-The downloaded source packages are in
-	‘/tmp/Rtmp1DEb9z/downloaded_packages’
-```
-
-You can verify that this package has been installed (and view the other packages that are already installed) using the RStudio IDE.
-First, in the **Files** pane, click on the **Packages** tab.
-Then, either scroll or search for `palmerpenguins`.
-Note that this tab is another place where you can install packages.
-In practice, you install a package once (or each time an update is made), then load it (using `library`) each time you start RStudio.
-
-In the code chunk below, I load the package, and show a snippet of the `penguins` dataset.
-
 ```{r palmerpenguins}
 library(palmerpenguins)
 penguins
 ```
 
-While I believe that most of the variables are relatively self-explanatory, we should still make sure we understand what information we have.
-Type the following in your **Console** to view the help documentation for the `penguins` dataset: `?penguins`.
-This should also only ever be typed in your Console (not included in an R Markdown file).
-
-Update the list of variables that I provided above (i.e., lines 24-31) to provide descriptions of each of the variables.
-
-The image below show how bill length and bill depth were measured.
-
-![Bill length and bill depth measurements for penguins](https://allisonhorst.github.io/palmerpenguins/reference/figures/culmen_depth.png)
-
-Beyond `{palmerpenguins}` we will also need `{ggplot2}` for creating visualizations.
-
 ```{r ggplot2}
 library(ggplot2)
 ```
-
-## Analysis
-
-### Explore Distributions
-
-Below is a comparative boxplots for the distribution of `flipper_length_mm` for the three `species`.
 
 ```{r boxplots-no-color}
 ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = species)) +
   geom_boxplot()
 ```
 
-From your preparations, you saw that you can add color to plots by mapping a variable to one of the color aesthetics.
-For this boxplot, we want to double-encode the variable `species` to not only the `y` axis, but also the `fill` aesthetic.
-In the code chunk below, add the missing code (i.e., replacing the `___`) to have our comparative boxplots also include some coloring.
-
 ```{r boxplot-colors}
-ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = species, ___ = ___)) +
+ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = species, fill = species)) +
   geom_boxplot()
 ```
 
 Now, comment on what you notice from these boxplots.
 
-**Response**:
+**The Gentoo species of penguin has the highest median flipper length. Whereas the Adelie species has the smallest flipper length on average**:
 
-
-Another way to visualize distributions are with points.
-You may have heard of dotplots before (one-dimensional scatterplots).
-We can create something similar with jitterplots using `geom_jitter`.
-In the code chunk below, complete it so that it produces a jitterplot.
 
 ```{r jitterplot}
-ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = species, ___ = ___)) +
-  ___()
+ggplot(data = penguins, mapping = aes(x = flipper_length_mm, y = species, color = species )) +
+  geom_jitter()
 ```
 
 Comment on the strengths of the boxplot compared to the jitterplot and vice versa.
 That is, what can you easily determine by looking at the boxplot?
 What about the jitterplot?
 
-**Response**:
+**The scatter plot shows each penguin on the individual level much more efficiently. We are able to see each groups scatter as opposed as to the box plot where it is limited by group metrics.**:
 
 
 Knit, stage, commit (with a meaningful commit message),and push everything in your **Git** pane to your GitHub repo.
@@ -145,7 +51,7 @@ Then, go to GitHub and compare/contrast your `activity02-ggplot2-intro.Rmd` and 
 Which is easier to read?
 Which looks more professional?
 
-**Response**:
+**The knitted file looks much more presentable in a report like format.**:
 
 
 Now, wouldn't it be nice if we could combine these two plots so that we get the benefits of both!?!
